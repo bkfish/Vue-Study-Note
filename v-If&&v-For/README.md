@@ -23,10 +23,8 @@ v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做
 2. 迭代对象中的属性
 
 ```
-
-	<!-- 循环遍历对象身上的属性 -->
-
-    <div v-for="(val, key, i) in userInfo">{{val}} --- {{key}} --- {{i}}</div>
+<!-- 循环遍历对象身上的属性 -->
+<div v-for="(val, key, i) in userInfo">{{val}} --- {{key}} --- {{i}}</div>
 
 ```
 
