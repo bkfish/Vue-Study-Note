@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>form</title>
+	<script src="./lib/vue-2.4.0.js"></script>
+	<meta charset="UTF-8">
+</head>
+<body>
+    
+    <div id='example-3'>
+        <input type="checkbox" id="kitty" value="Kitty1" v-model='checkedNames'>
+        <label>Kitty</label>
+        <br>
+        <span>checked Name:{{checkedNames}}</span>
+    </div>
+
+    <br>
+
+    <div id='singlecheck'>
+        <input type="radio" id='one' value="One" v-Model='picked'>
+        <label>One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label>Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+    </div>
+
+    <br>
+
+    <div id='selectdemo'>
+        <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+        </select>
+        <span>Selectd: {{selected}}</span>
+    </div>
+    <br>
+    <div id="example-6">
+            <select v-model="selecteds" multiple style="width: 50px;">
+              <option>A</option>
+              <option>B</option>
+              <option>C</option>
+            </select>
+            <br>
+            <span>Selected: {{ selecteds }}</span>
+    </div>
+    <br>
+    <div id="fordemo">
+        <select v-model='selected'>
+            <option v-for='option in options' v-bind:value='option.value'>
+                {{option.text}}
+            </option>
+        </select>
+        <span>Selected: {{selected}}</span>
+    </div>
+
+  <script>
+    //    复选框
+    // 创建 Vue 实例，得到 ViewModel
+   var vm=new Vue({
+       el:'#example-3',
+       data:{
+           checkedNames:[]
+       }
+   })
+
+   //单选
+   var singlecheck=new Vue({
+       el:'#singlecheck',
+       data:{
+           picked:''
+       }
+   })
+
+   //单选框
+   var select=new Vue({
+       el:'#selectdemo',
+       data:{
+           selected:''
+       }
+   })
+
+   //复选框
+   var selects=new Vue({
+        el: '#example-6',
+        data: {
+            selecteds: []
+        }
+  })
+
+  //v-for
+  var fordemo=new Vue({
+  el: '#fordemo',
+  data: {
+    selected: 'A',
+    options: [
+      { text: 'One', value: 'A' },
+      { text: 'Two', value: 'B' },
+      { text: 'Three', value: 'C' }
+    ]
+  }
+})
+  </script>
+
+</body>
+</html>
