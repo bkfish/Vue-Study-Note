@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Component</title>
+	<script src="./lib/vue-2.4.0.js"></script>
+	<meta charset="UTF-8">
+</head>
+<body>
+  <div id="app">
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter><br>
+    <blog-post title="Hello Kitty" content="This is text"></blog-post>
+    <blog-post title="Hello world" content="This is text2"></blog-post>
+    <blog-post-1></blog-post-1>
+    <button-counter1></button-counter1>
+  </div>
+
+  <template id="tmp1">
+    <h1>外部的template</h1>
+  </template>
+
+  <script>
+      // 定义一个名为 button-counter 的新组件
+    Vue.component('button-counter',{
+    data:function(){
+    return{
+        count:0
+    }
+    },
+    template:'<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+})
+
+    //prop,类似于参数？？
+    Vue.component('blog-post',{
+      props:['title','content'],
+      template:'<div><h2>{{title}}</h2><div v-html="content"></div><br></div>'
+    })  
+    
+    //外部定义模板
+    Vue.component('blog-post-1',{
+      template:'#tmp1'
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      components:{ //实例内部私有组件
+        'button-counter1':{
+          template:'<h1>这是私有的button-counter组件</h1>'
+        }
+      }
+    });
+
+  </script>
+</body>
+</html>
