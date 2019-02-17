@@ -13,12 +13,12 @@
 <body>
   <div id="app">
 
-  <h3>{{msg | msgFormat('疯狂','Kitty')|test}} </h3>
+  <h3>{{msg | msgFormat1('可爱','Kitty')|test}} </h3>
 
   </div>
 
   <script>
-    //定义一个全局过滤器
+    //定义一个全局过滤器，所有vm共享
     Vue.filter('msgFormat',function(msg,arg,arg2) {
         //字符串 replace第一个参数 除了字符串，还可以正则
         // return msg.replace('单纯','邪恶')
@@ -34,7 +34,15 @@
       el: '#app',
       data:{
         msg: '曾经，我也是一个单纯的少年，单纯的我，傻傻的问，谁是世界上最单纯的男人'
-      },
+      }, 
+      filters:{//局部过滤器 过滤器 有两个条件 名称+处理函数
+        msgFormat1:function(msg,arg,arg2) {
+        //字符串 replace第一个参数 除了字符串，还可以正则
+        // return msg.replace('单纯','邪恶')
+        //先调用自己的 私有的和全局一致 优先调用私有过滤器
+        return msg.replace(/单纯/g,arg+arg2)
+    }
+      }
     });
   </script>
 </body>

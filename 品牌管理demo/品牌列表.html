@@ -27,19 +27,17 @@
           
           <label>
             Name:
-            <input type="text" class="form-control" v-model="name">
+            <input type="text" class="form-control" v-model="name" @keyup.enter="add">
           </label>
 
           <input type="button" value="添加" class="btn btn-primary" @click="add">
 
           <label>
             搜索关键字：
-            <input type="text" class="form-control" v-model="keywords">
+            <input type="text" class="form-control" v-model="keywords"  v-focus v-color="'blue'">
           </label>
-
-
-          </div>
-        </div>
+      </div>
+    </div>
     
 
     <table class="table table-bordered table-hover table-striped">
@@ -76,22 +74,44 @@
       //yyyy-mm-dd
 
       var y=dt.getFullYear()
-      var m=dt.getMonth()+1
-      var d=dt.getDate()
+      var m=(dt.getMonth()+1).toString().padStart(2,'0')
+      var d=(dt.getDate()).toString().padStart(2,'0')
       //模板字符串
       if(pattern && pattern.toLowerCase()=='yyyy-mm-dd')
       {
         return `${y}-${m}-${d}`
       }else{
-        var hh=dt.getHours()
-        var mm=dt.getMinutes()
-        var ss=dt.getSeconds()
+        var hh=(dt.getHours()).toString().padStart(2,'0')
+        var mm=(dt.getMinutes()).toString().padStart(2,'0')
+        var ss=(dt.getSeconds()).toString().padStart(2,'0')
         return `${y}-${m}-${d} ${hh}-${mm}-${ss}`
       }
      
 
     })
 
+    //自定义修饰符
+    Vue.config.keyCodes.f2=113
+
+    //自定义指令 参数1：名称 定义不加前缀，调用必须加
+    //参数二是对象 有一些相关函数
+    Vue.directive('focus',{
+      bind:function(el){  //绑定的时候调用
+        //第一个参数是el 表示绑定指令的元素
+      },
+      inserted:function(el){ //当插入DOM的时候调用一次
+        el.focus()
+      },
+      updated:function(e1){ //当VNode更新的时候会执行updated，可能触发多次
+
+      }
+    })
+   //自定义设置颜色
+    Vue.directive('color',{
+      bind:function(el,binding){
+        el.style.color=binding.value
+      }
+    })
 
     // 创建 Vue 实例，得到 ViewModel
     var vm = new Vue({
@@ -150,6 +170,8 @@
     //   return data+2;
     // })
 
+    //获得焦点
+    //document.getElementById('search').focus()
   </script>
 </body>
 
