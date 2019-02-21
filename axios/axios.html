@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.4.0.js"></script>
+  <script src="./lib/axios.min.js"></script>
+  <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="get请求" @click="getInfo">
+    <input type="button" value="Post 请求" @click="Add_blog">
+    <input type="button" value="delete 请求" @click="Delete">
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data:{},
+      methods:{
+          getInfo(){
+              axios.get('http://127.0.0.1:8080/blog/api/blog/').then(function (response) {
+                  console.log(response)
+              })
+          },
+          Add_blog(){
+              axios.post('http://127.0.0.1:8080/blog/api/blog/',
+              {title:'test-vue',blog_type:1,content:'vue牛逼',author:1}).
+              then(function (response) {
+                  console.log(response)
+              })
+          },
+          Delete(){
+              axios.delete('http://127.0.0.1:8080/blog/api/blog/7').then(function (response) {
+                  console.log(response)
+          })
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
